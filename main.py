@@ -36,6 +36,17 @@ class Float:
     def __str__(self) -> str:
         return str(self.value / 2**self.precision)
     
+    def sqrt(self) -> "Float":
+        '''
+        Use Newton's method to calculate sqrt
+        '''
+        z = (self.value + 1) // 2
+        y = self.value
+        while z < y:
+            y = z
+            z = (self.value // z + z) // 2
+        return Float(y << (self.precision // 2))
+    
 if __name__ == "__main__":
     x = 0.25
     y = 10
@@ -55,6 +66,13 @@ if __name__ == "__main__":
     print("a - b =", (a - b).value)
     print("a * b =", (a * b).value)
     print("a / b =", (a / b).value)
+    print("=====================================")
+    print("Sqrt:")
+    print("sqrt(a) =", Float.from_number(100).sqrt())
+    print("sqrt(b) =", Float.from_number(0.25).sqrt())
+    print("sqrt(a) actual value =", Float.from_number(100).sqrt().value)
+    print("sqrt(b) actual value =", Float.from_number(0.25).sqrt().value)
+    print("=====================================")
 
 
 
